@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import StarRatingComponent from "react-star-rating-component";
 import { Modal, Button, Form, Col, Row } from "react-bootstrap";
-const Add = ({ show, handleClose, addMovie }) => {
-  const[newMovie, setNewMovie] = useState({
+const Add = ({ show, handleClose, addMovie, setRate }) => {
+  const [newMovie, setNewMovie] = useState({
     main_img: "",
     title: "",
     duration: "",
@@ -12,8 +12,13 @@ const Add = ({ show, handleClose, addMovie }) => {
     description: "",
   });
   const onStarClick = (nextValue, prevValue, name) => {
+    setNewMovie({ ...newMovie, rate: nextValue });
     setRate(nextValue);
   };
+  const handleChange = (e) => {
+    setNewMovie({ ...newMovie, [e.target.name]: e.target.value });
+  };
+
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
@@ -25,43 +30,55 @@ const Add = ({ show, handleClose, addMovie }) => {
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>Title</Form.Label>
-                <Form.Control type="text" placeholder="Enter Title" />
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Title"
+                  onChange={handleChange}
+                  name="title"
+                />
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridPassword">
                 <Form.Label>Image Url</Form.Label>
                 <Form.Control
-                  type="password"
+                  type="text"
                   placeholder="image url"
-                  onChange={handlechange}
+                  onChange={handleChange}
+                  name="main_img"
                 />
               </Form.Group>
             </Row>
             <StarRatingComponent
               name="rate1"
               starCount={5}
-              // value={rateIt}
-              // onStarClick={onStarClick}
+              value={newMovie.rate}
+              onStarClick={onStarClick}
             />
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows={3} onChange={handlechange} />
+              <Form.Control
+                as="textarea"
+                rows={3}
+                onChange={handleChange}
+                name="description"
+              />
             </Form.Group>
 
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridCity">
                 <Form.Label>Duration</Form.Label>
-                <Form.Control onChange={handlechange} />
+                <Form.Control onChange={handleChange} name="duration" />
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>Genre</Form.Label>
                 <Form.Select
                   defaultValue="Choose Genre"
-                  onChange={handlechange}
+                  onChange={handleChange}
+                  name="genre"
                 >
                   <option>...</option>
                   <option>Thriller</option>
@@ -82,7 +99,13 @@ const Add = ({ show, handleClose, addMovie }) => {
           >
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              addMovie(newMovie);
+              handleClose();
+            }}
+          >
             Add
           </Button>
         </Modal.Footer>

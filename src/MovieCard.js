@@ -1,5 +1,5 @@
 import React from "react";
-import StarRatingComponent from "react-star-rating-component";;
+import StarRatingComponent from "react-star-rating-component";
 
 const MovieCard = ({ movie }) => {
   return (

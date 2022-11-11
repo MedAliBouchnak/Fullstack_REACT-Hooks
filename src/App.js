@@ -17,7 +17,6 @@ function App() {
       rate: "5",
       genre: "",
       description: "",
-      
     },
     {
       main_img:
@@ -39,7 +38,6 @@ function App() {
       rate: "3",
       genre: "",
       description: "",
-      
     },
     {
       main_img: "",
@@ -50,7 +48,6 @@ function App() {
       rate: "4",
       genre: "",
       description: "",
-      
     },
   ]);
   const search = (text) => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import StarRatingComponent from "react-star-rating-component";
 
-const Search = ({ search, setRate,rateIt }) => {
+const Search = ({ search, setRate, rateIt }) => {
   const [rating, setRating] = useState(1);
   const onStarClick = (nextValue, prevValue, name) => {
     setRate(nextValue);
